@@ -1,0 +1,27 @@
+# --- 1. AUTHENTIFICATION PROXMOX ---
+pve_api_host: "192.168.X.X"             # IP de votre serveur Proxmox
+pve_api_user: "root@pam"                # Utilisateur avec droits d'admin
+pve_api_password: "MOT_DE_PASSE_ROOT"   # Mot de passe de l'interface Proxmox
+pve_node: "nom_du_noeud"                # Nom du noeud Proxmox (ex: pve, proxmox-01)
+
+# --- 2. PARAMÈTRES DU CONTENEUR (LXC) ---
+ct_id: 100                              # ID unique de la machine
+ct_hostname: "nom-de-la-machine"        # Nom de la machine 
+ct_password: "MotDePasseMachine123!"    # Mot de passe root 
+ct_disk_size: 8                         # Taille du disque en Go 
+ct_template: "local:vztmpl/votre_template_debian.tar.zst" # Chemin du template sur Proxmox
+ct_cores: 1                             # Nombre de coeurs CPU
+ct_memory: 1024                         # RAM en Mo
+ct_bridge: "vmbr0"                      # Interface réseau Proxmox
+ct_ip: "192.168.X.X/24"                 # IP de la nouvelle machine
+ct_gw: "192.168.X.X"                    # Passerelle / Routeur
+
+# --- 3. PARAMÈTRES SYSTÈME ---
+new_user_name: "admin_sys"              # Nom du nouvel utilisateur
+new_user_pass: "MotDePasseSudo123!"     # Mot de passe de ce nouvel utilisateur
+
+# --- 4. PARAMÈTRES SOC (SPLUNK) ---
+splunk_server: "192.168.X.X"            # IP de votre serveur Splunk central
+splunk_port: "9997"                     # Port de réception Splunk
+splunk_uf_pass: "MotDePasseSplunk123!"  # Mot de passe de l'agent Universal Forwarder
+splunk_deb_url: "https://download.splunk.com/products/universalforwarder/releases/10.2.0/linux/splunkforwarder-10.2.0-d749cb17ea65-linux-amd64.deb" #URL de téléchargement de l'agent Splunk pour Debian/Ubuntu

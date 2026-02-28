@@ -1,0 +1,186 @@
+
+- name: Deploiement d'un conteneur Proxmox (LXC)
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - config.yml
+
+  tasks:
+    - name: 1. Creation du conteneur LXC
+      community.general.proxmox:
+        api_host: "{{ pve_api_host }}"
+        api_user: "{{ pve_api_user }}"
+        api_password: "{{ pve_api_password }}"
+        node: "{{ pve_node }}"
+        
+        vmid: "{{ ct_id }}"
+        hostname: "{{ ct_hostname }}"
+        password: "{{ ct_password }}"
+        pubkey: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}" 
+        disk: "{{ ct_disk_size }}"
+        ostemplate: "{{ ct_template }}"
+        cores: "{{ ct_cores }}"
+        memory: "{{ ct_memory }}"
+        netif: '{"net0":"name=eth0,bridge={{ ct_bridge }},ip={{ ct_ip }},gw={{ ct_gw }}"}'
+        
+        unprivileged: true 
+        storage: "local-lvm"
+        features: ["nesting=1", "keyctl=1"] 
+        state: present
+
+    - name: 2. Demarrage automatique du conteneur
+      community.general.proxmox:
+        api_host: "{{ pve_api_host }}"
+        api_user: "{{ pve_api_user }}"
+        api_password: "{{ pve_api_password }}"
+        node: "{{ pve_node }}"
+        vmid: "{{ ct_id }}"
+        state: started
+
+    - name: 3. Extraire l'IP propre pour la connexion SSH
+      set_fact:
+        ct_ip_clean: "{{ ct_ip | regex_replace('/.*', '') }}"
+
+    - name: 4. Attendre l'ouverture du port SSH de la nouvelle machine
+      wait_for:
+        host: "{{ ct_ip_clean }}"
+        port: 22
+        delay: 5
+        timeout: 120
+
+    - name: 5. Ajouter dynamiquement le conteneur a l'inventaire Ansible
+      add_host:
+        hostname: "{{ ct_ip_clean }}"
+        groups: nouveaux_serveurs
+        ansible_user: "root"
+        ansible_ssh_private_key_file: "~/.ssh/id_ed25519"
+        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+- name: Initialisation du systeme d'exploitation et SOC
+  hosts: nouveaux_serveurs
+  gather_facts: yes
+
+  vars_files:
+    - config.yml
+
+  tasks:
+    - name: 1. Mise a jour complete de l'OS (apt update && upgrade)
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: 2. Installation des paquets de base
+      apt:
+        name: [curl, sudo, openssh-server, rsyslog]
+        state: present
+
+    - name: 3. S'assurer que rsyslog est demarre (Requis pour Splunk)
+      service:
+        name: rsyslog
+        state: started
+        enabled: yes
+
+    - name: 4. Installation de Docker (Script officiel)
+      shell: curl -fsSL https://get.docker.com | sh
+      args:
+        creates: /usr/bin/docker
+
+    - name: 5. Creation du nouvel utilisateur d'administration
+      user:
+        name: "{{ new_user_name }}"
+        shell: /bin/bash
+        groups: sudo,docker
+        append: yes
+
+    - name: 6. Definition du mot de passe de l'utilisateur
+      shell: "echo '{{ new_user_name }}:{{ new_user_pass }}' | chpasswd"
+
+    - name: 7. Securisation SSH (Interdiction du mot de passe root)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin prohibit-password'
+        state: present
+        validate: /usr/sbin/sshd -t -f %s
+      notify: Redemarrer SSH
+
+    - name: 8. Telecharger le package Splunk Universal Forwarder
+      get_url:
+        url: "{{ splunk_deb_url }}"
+        dest: "/tmp/splunkforwarder.deb"
+
+    - name: 9. Installer l'agent Splunk
+      apt:
+        deb: "/tmp/splunkforwarder.deb"
+
+    - name: 10. Creation des droits systeme pour Splunk
+      user:
+        name: splunk
+        group: splunk
+        system: yes
+        create_home: no
+
+    - name: 11. Attribution du dossier a l'utilisateur Splunk
+      file:
+        path: /opt/splunkforwarder
+        state: directory
+        owner: splunk
+        group: splunk
+        recurse: yes
+
+    - name: 12. Configurer le mot de passe admin Splunk (user-seed.conf)
+      copy:
+        dest: /opt/splunkforwarder/etc/system/local/user-seed.conf
+        content: |
+          [user_info]
+          USERNAME = admin
+          PASSWORD = {{ splunk_uf_pass }}
+        owner: splunk
+        group: splunk
+
+    - name: 13. Configurer la destination vers le serveur Splunk (outputs.conf)
+      copy:
+        dest: /opt/splunkforwarder/etc/system/local/outputs.conf
+        content: |
+          [tcpout]
+          defaultGroup = default-autolb-group
+
+          [tcpout:default-autolb-group]
+          server = {{ splunk_server }}:{{ splunk_port }}
+        owner: splunk
+        group: splunk
+
+    - name: 14. Configurer la surveillance des logs de securite (inputs.conf)
+      copy:
+        dest: /opt/splunkforwarder/etc/system/local/inputs.conf
+        content: |
+          [monitor:///var/log/auth.log]
+          disabled = false
+          sourcetype = linux_secure
+          index = default
+
+          [monitor:///var/log/syslog]
+          disabled = false
+          sourcetype = syslog
+          index = default
+        owner: splunk
+        group: splunk
+
+    - name: 15. Activer Splunk au demarrage et accepter la licence
+      command: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk --accept-license --answer-yes --no-prompt
+      args:
+        creates: /etc/systemd/system/SplunkForwarder.service
+
+    - name: 16. Demarrer l'agent Splunk
+      service:
+        name: SplunkForwarder
+        state: restarted
+        enabled: yes
+
+  handlers:
+    - name: Redemarrer SSH
+      service:
+        name: ssh
+        state: restarted

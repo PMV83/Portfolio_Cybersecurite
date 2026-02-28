@@ -1,10 +1,10 @@
-# 🛡️ Portfolio Cybersécurité : Aurélien Logeais
+# Portfolio Cybersécurité
 
 Bienvenue sur mon dépôt technique central.
 
 Actuellement en dernière année de Mastère Cybersécurité à l'ESGI, je construis ce portfolio pour documenter ma progression technique et partager mes expérimentations. Passionné par la défense en profondeur et l'analyse des menaces, je recherche un poste d'Analyste SOC ou d'Ingénieur Cybersécurité pour la rentrée de septembre 2026.
 
-## 📂 Organisation du dépôt
+## Organisation du dépôt
 Ce répertoire est divisé en deux sections distinctes pour séparer mes recherches personnelles de mes travaux académiques.
 
 ### 1. Projets Personnels : Laboratoire de Cyberdéfense
@@ -20,7 +20,7 @@ Cette section regroupe les projets majeurs réalisés durant mon cursus universi
 * **Blockchain** : Conception d'un protocole cryptographique dédié à la certification immuable des diplômes.
 * **Architecture Système** : Développement bas niveau incluant un compilateur RAM et un moteur de Ray Tracing.
 
-## 📬 Me contacter
+## Me contacter
 Je suis pleinement disponible pour échanger sur mes projets ou sur d'éventuelles opportunités professionnelles dans la région Sud.
 
 * **LinkedIn** : https://www.linkedin.com/in/aurelien-logeais-1727922b4
