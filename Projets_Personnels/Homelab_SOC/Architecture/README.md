@@ -1,36 +1,43 @@
-# Architecture et Segmentation Réseau
+# Architecture Zero Trust Proxmox et Cloudflare
 
-Bienvenue dans la documentation de l'architecture de mon laboratoire de cyberdéfense. 
+Bienvenue dans la documentation officielle de l'architecture de mon laboratoire de cyberdéfense.
 
-L'objectif de cette infrastructure est de **reproduire un réseau d'entreprise réaliste**. J'ai construit cet environnement sur un hyperviseur **Proxmox** (Type 1), avec un pare-feu **pfSense** agissant comme routeur et point de contrôle central.
-
----
-
-## Philosophie de Sécurité : Zero Trust et Assume Breach
-
-L'ensemble du réseau a été pensé selon le principe du **moindre privilège**. Plutôt que de faire confiance à l'ensemble du réseau local, j'ai segmenté les machines en fonction de leur niveau de criticité. 
-
-* **Isolation par défaut :** Aucun réseau ne peut communiquer avec un autre sans règle explicite.
-* **Exposition contrôlée :** L'accès depuis l'extérieur est entièrement fermé au niveau du pare-feu ; l'exposition des services se fait uniquement au travers de **tunnels sécurisés Cloudflare**.
+L'objectif de cette infrastructure est de reproduire un réseau d'entreprise hautement sécurisé. L'ensemble repose sur un serveur physique Proxmox avec un pare-feu pfSense agissant comme routeur et point de contrôle central.
 
 ---
 
-## Plan d'adressage et VLANs
+## Philosophie de Sécurité et Cloudflare
 
-Le réseau est découpé en plusieurs zones logiques strictement isolées via des VLANs.
+L'exposition directe sur Internet est inexistante. L'intégralité du trafic entrant passe par des tunnels Cloudflare. Cela permet de bénéficier d'un pare-feu applicatif WAF en amont et de masquer la véritable adresse IP publique.
 
-| Zone | Nom | Rôle & Composants | Politique de Sécurité |
-| :--- | :--- | :--- | :--- |
-| **VLAN 10** | **Management** | Interfaces Proxmox, pfSense, poste admin. | Accès sortant vers les autres zones pour maintenance ; aucun accès entrant autorisé. |
-| **VLAN 20** | **Services & Détection** | Splunk Enterprise, AdGuard Home, serveurs d'infrastructure. | Seuls les flux Syslog et agents Forwarders sont autorisés en entrée. |
-| **VLAN 30** | **Laboratoire** | Machines cibles Windows et Linux (vulnérables). | **Isolation totale**. Aucun accès vers les autres VLANs pour prévenir tout mouvement latéral. |
+Au sein du réseau local, la règle d'isolation par défaut est stricte. Les communications directes entre les différents sous-réseaux privés RFC1918 sont bloquées au niveau du pare-feu.
 
 ---
 
-## Inspection des Flux
+## Plan d'adressage et Segmentation
 
-Au-delà du simple filtrage par adresses IP, l'ensemble des flux transitant entre ces zones est analysé par le moteur **Suricata**. 
+Le réseau est découpé en quatre zones logiques distinctes pour garantir un cloisonnement optimal.
 
-* **Mode IPS :** Configuré en mode prévention active pour bloquer les signatures malveillantes connues.
-* **Analyse Comportementale :** Détection des comportements anormaux avant même qu'ils n'atteignent leur cible.
-* **Visibilité :** Chaque alerte est envoyée en temps réel vers le SIEM Splunk pour corrélation.
+### 1. Zone Admin et Infra
+
+- **Réseau :** `vmbr1` — `10.0.10.0/24` — Interface `vtnet1`
+- **Rôle :** Héberger la colonne vertébrale de l'infrastructure et la supervision.
+- **Composants :** Interface de management Proxmox, serveur SOC Wazuh, serveur AdGuard DNS et point d'accès VPN.
+
+### 2. Trusted Services
+
+- **Réseau :** Bridge Services — `10.0.20.0/24` — Interface `vtnet4`
+- **Rôle :** Héberger les applications internes de confiance.
+- **Composants :** Gestionnaire de mots de passe Vaultwarden et portail d'accueil Homepage.
+
+### 3. DMZ Exposed
+
+- **Réseau :** Bridge DMZ — `10.0.30.0/24` — Interface `vtnet3`
+- **Rôle :** Isoler les services destinés à être accessibles depuis Internet via les tunnels Cloudflare.
+- **Composants :** Serveur Média, serveur Minecraft et autres sites web hébergés.
+
+### 4. Lab Untrusted
+
+- **Réseau :** `vmbr2` — `10.0.40.0/24` — Interface `vtnet2`
+- **Rôle :** Fournir un environnement bac à sable pour les expérimentations dangereuses.
+- **Composants :** Machines virtuelles scolaires et environnements de test Sandbox.
