@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3,
+    "date": "2026-03-10T09:00:00",
+    "category": "Cybersécurité",
+    "content": "🔐 [Exemple de post planifié — visible le 10 mars]\n\nCe post est programmé pour apparaître en même temps que ta publication LinkedIn réelle.\nRemplace ce texte par le contenu de ton vrai post.",
+    "images": [],
+    "url": ""
+  },
+  {
+    "id": 2,
+    "date": "2026-02-20T10:00:00",
+    "category": "Certification",
+    "content": "✅ CompTIA Security+ validée !\n\nFier d'avoir obtenu ma certification Security+ en janvier 2026. Une belle étape dans mon parcours en cybersécurité, qui vient consolider mes connaissances théoriques et pratiques acquises en alternance chez Kaizzen et via mon homelab Proxmox.\n\nProchaine étape : Stormshield CSNA en juillet 2026 🚀\n\n#Cybersécurité #CompTIA #SecurityPlus #BlueTeam",
+    "images": [],
+    "url": "https://www.linkedin.com/in/aurelien-logeais-1727922b4"
+  },
+  {
+    "id": 1,
+    "date": "2026-01-15T14:00:00",
+    "category": "Homelab",
+    "content": "CERTIFIÉ SECURITY+ ! ✅\n\nJe suis très heureux d'avoir validé la Certification Comptia Security+ qui vient concrétiser plusieurs mois de préparation. \n\nLa réussir en parallèle de mon alternance et de mon Mastère a demandé une organisation rigoureuse, mais je tenais absolument à valider cette étape supplémentaire par moi-même. \n\nAu-delà du diplôme, le Security+ m'a permis de structurer mes connaissances et de maîtriser le référentiel standard de notre métier.\n\nEt justement, maintenant que la théorie est validée, place à la pratique !\n\nJe profite de cette dynamique pour intensifier mes travaux sur mon .\n\nMon objectif est clair : transformer ces concepts validés en compétences opérationnelles concrètes. \n\nActuellement, je travaille sur :\n - La détection : Configuration de mon SIEM via l'outil Wazuh pour analyser les logs.\n - L'automatisation : Écriture de mes premiers playbooks Ansible pour standardiser mes déploiements.\n\nD'ailleurs, je partagerai prochainement ici quelques retours d'expérience et éléments de mon architecture. Restez connectés si le sujet du Homelab vous intéresse !\n\nC'est cette double approche, la rigueur académique alliée à la curiosité technique, que je souhaite mettre à profit professionnellement.\n\nJe suis à la recherche d'un CDI en Cybersécurité (Analyste SOC / Blue Team) sur la région Marseille / Aix-en-Provence à partir de Septembre 2026.\n\nMon CV est disponible directement sur mon profil dans la section \"Ma sélection\" ou via le lien en premier commentaire.\n\nMerci à ceux qui m'ont soutenu dans cette préparation !\n\n#Cybersecurity #SOC #CompTIA #SecurityPlus #Homelab #BlueTeam #Marseille #CDI #ESGI",
+    "images": [
+      "data/posts-images/comptia_security.png"
+    ],
+    "url": "https://www.linkedin.com/in/aurelien-logeais-1727922b4"
+  }
+]

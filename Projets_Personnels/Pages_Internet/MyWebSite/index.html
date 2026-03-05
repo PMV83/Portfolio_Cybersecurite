@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aurélien Logeais — Analyste Cybersécurité Blue Team, disponible pour un CDI dès Septembre 2026." />
+  <meta name="robots" content="index, follow" />
+  <title>Aurélien Logeais | Cybersécurité Blue Team</title>
+
+  <!-- Favicon inline SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+
+  <!-- Google Fonts — self-hostable if needed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome — icons only, loaded once -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ░░ SCANLINES OVERLAY ░░ -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ░░ BACKGROUND GRID ░░ -->
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ░░ NAV ░░ -->
+  <nav id="navbar" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-bracket">[</span>AL<span class="nav-logo-bracket">]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about"><span class="prompt">//</span>Profil</a></li>
+        <li><a href="#github"><span class="prompt">//</span>GitHub</a></li>
+        <li><a href="#activity"><span class="prompt">//</span>LinkedIn</a></li>
+        <li><a href="#posts-archive"><span class="prompt">//</span>Archive</a></li>
+        <li><a href="#links"><span class="prompt">//</span>Liens</a></li>
+        <li><a href="mailto:aurelienlogeais781@gmail.com" class="nav-cta">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE NAV DRAWER ░░ -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
+    <ul>
+      <li><a href="#about" class="drawer-link">Profil</a></li>
+      <li><a href="#github" class="drawer-link">GitHub</a></li>
+      <li><a href="#activity" class="drawer-link">LinkedIn</a></li>
+      <li><a href="#posts-archive" class="drawer-link">Archive</a></li>
+      <li><a href="#links" class="drawer-link">Liens</a></li>
+      <li><a href="mailto:aurelienlogeais781@gmail.com" class="drawer-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════════
+         SECTION 1 — HERO
+    ══════════════════════════════════ -->
+    <section id="hero" aria-labelledby="hero-name">
+      <div class="hero-inner">
+
+        <div class="hero-photo-wrap">
+          <img src="assets/photoprofil.jpg" alt="Photo de profil d'Aurélien Logeais"
+               class="hero-photo" onerror="this.style.display='none'" />
+          <div class="hero-photo-ring" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero-text">
+          <p class="hero-terminal-line" aria-hidden="true">
+            <span class="blink-cursor">▋</span>
+            <span id="typewriter"></span>
+          </p>
+          <h1 id="hero-name" class="hero-name">AURÉLIEN<br /><span class="accent">LOGEAIS</span></h1>
+          <p class="hero-title">Analyste Cybersécurité Junior · Blue Team Operator</p>
+
+          <div class="hero-badges">
+            <span class="badge badge-available">
+              <i class="fa-solid fa-circle-check"></i>
+              Disponible CDI — Septembre 2026
+            </span>
+            <span class="badge badge-location">
+              <i class="fa-solid fa-location-dot"></i>
+              Marseille / Aix-en-Provence
+            </span>
+          </div>
+
+          <div class="hero-actions">
+            <a href="assets/CV_Aurelien_Logeais.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+              <i class="fa-solid fa-file-arrow-down"></i> Télécharger CV
+            </a>
+            <a href="https://portfolio.pmvix.com" target="_blank" rel="noopener" class="btn btn-secondary">
+              <i class="fa-solid fa-globe"></i> CV Interactif
+            </a>
+            <a href="mailto:aurelienlogeais781@gmail.com" class="btn btn-ghost">
+              <i class="fa-solid fa-paper-plane"></i> Me contacter
+            </a>
+          </div>
+
+          <div class="hero-social">
+            <a href="https://github.com/PMV83" target="_blank" rel="noopener" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/aurelien-logeais-1727922b4" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="tel:0787320572" aria-label="Téléphone">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span>scroll</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SECTION 2 — PROFIL / ABOUT
+    ══════════════════════════════════ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-inner">
+        <h2 id="about-title" class="section-title">
+          <span class="section-num">01</span> Profil
+        </h2>
+
+        <div class="about-grid">
+
+          <div class="about-bio card">
+            <p class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><code>whoami.sh</code></p>
+            <p>
+              Étudiant en dernière année de <strong>Mastère Cybersécurité</strong> à l'ESGI Aix-en-Provence,
+              certifié <strong>CompTIA Security+</strong>. Je combine une expertise Azure / IAM acquise en
+              alternance chez Kaizzen avec un homelab personnel avancé centré sur le <strong>SIEM Splunk</strong>
+              et l'automatisation DevSecOps.
+            </p>
+            <p>
+              Passionné par la <strong>Blue Team</strong>, je recherche un poste d'Analyste SOC ou d'Ingénieur
+              Cybersécurité orienté détection et réponse aux incidents, disponible en CDI dès Septembre 2026.
+            </p>
+          </div>
+
+          <div class="about-certifs card">
+            <p class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><code>certs.log</code></p>
+            <ul class="cert-list">
+              <li>
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                  <strong>CompTIA Security+</strong>
+                  <span class="cert-status status-ok">Validée — Janvier 2026</span>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-fire-flame-curved"></i>
+                <div>
+                  <strong>Stormshield CSNA</strong>
+                  <span class="cert-status status-wip">En cours — Juillet 2026</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about-skills card">
+            <p class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><code>skills.json</code></p>
+            <div class="skill-categories">
+              <div class="skill-cat">
+                <span class="skill-cat-label">SOC &amp; Détection</span>
+                <div class="skill-tags">
+                  <span class="tag">Splunk</span>
+                  <span class="tag">MITRE ATT&amp;CK</span>
+                  <span class="tag">Analyse de logs</span>
+                  <span class="tag">Alerting</span>
+                </div>
+              </div>
+              <div class="skill-cat">
+                <span class="skill-cat-label">Réseau &amp; Défense</span>
+                <div class="skill-tags">
+                  <span class="tag">pfSense</span>
+                  <span class="tag">Wireshark</span>
+                  <span class="tag">VLANs</span>
+                  <span class="tag">Cloudflare ZT</span>
+                  <span class="tag">WireGuard</span>
+                </div>
+              </div>
+              <div class="skill-cat">
+                <span class="skill-cat-label">Cloud &amp; IAM</span>
+                <div class="skill-tags">
+                  <span class="tag">Microsoft Azure</span>
+                  <span class="tag">Entra ID</span>
+                  <span class="tag">IAM</span>
+                  <span class="tag">Docker</span>
+                </div>
+              </div>
+              <div class="skill-cat">
+                <span class="skill-cat-label">Automatisation</span>
+                <div class="skill-tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Bash</span>
+                  <span class="tag">PowerShell</span>
+                  <span class="tag">Ansible</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-homelab card">
+            <p class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><code>homelab_arch.txt</code></p>
+            <p class="homelab-title"><i class="fa-solid fa-server"></i> Infrastructure Homelab (Proxmox)</p>
+            <ul class="homelab-list">
+              <li><i class="fa-solid fa-magnifying-glass-chart"></i><span><strong>SIEM :</strong> Splunk Enterprise avec règles de détection custom et ingestion de logs</span></li>
+              <li><i class="fa-solid fa-robot"></i><span><strong>Automatisation :</strong> Playbooks Ansible, scripts Bash &amp; Python pour le déploiement</span></li>
+              <li><i class="fa-solid fa-network-wired"></i><span><strong>Réseau :</strong> Segmentation VLAN via pfSense et filtrage DNS AdGuard</span></li>
+              <li><i class="fa-solid fa-lock"></i><span><strong>Zero Trust :</strong> Cloudflare Tunnel + VPN WireGuard pour l'accès distant</span></li>
+            </ul>
+          </div>
+
+          <div class="about-xp card" style="grid-column:1 / -1">
+            <p class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><code>experiences.log</code></p>
+            <div class="xp-list">
+
+              <div class="xp-item">
+                <div class="xp-dot"></div>
+                <div class="xp-body">
+                  <div class="xp-header">
+                    <span class="xp-title">Assistant Business App &amp; Sécurité Cloud</span>
+                    <span class="xp-badge">Alternance</span>
+                    <span class="xp-date">Août 2024 — Septembre 2026</span>
+                  </div>
+                  <span class="xp-company"><i class="fa-solid fa-building"></i> Kaizzen, Marseille</span>
+                  <ul class="xp-tasks">
+                    <li>Gestion des identités et des accès IAM sur l'environnement Microsoft Azure et Entra ID.</li>
+                    <li>Sécurisation des secrets applicatifs et automatisation des processus métier.</li>
+                    <li>Veille technologique et application des bonnes pratiques de sécurité Cloud.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="xp-item">
+                <div class="xp-dot"></div>
+                <div class="xp-body">
+                  <div class="xp-header">
+                    <span class="xp-title">Responsable d'équipe</span>
+                    <span class="xp-badge xp-badge-other">Saisonnier</span>
+                    <span class="xp-date">Étés 2022 — 2024</span>
+                  </div>
+                  <span class="xp-company"><i class="fa-solid fa-building"></i> Plage &amp; Loisirs, Le Lavandou</span>
+                  <ul class="xp-tasks">
+                    <li>Management direct et coordination du personnel dans un environnement à forte affluence.</li>
+                    <li>Prise de décision rapide, résolution de problèmes en temps réel et maintien des standards de qualité.</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SECTION 3 — GITHUB ACTIVITY
+    ══════════════════════════════════ -->
+    <section id="github" aria-labelledby="github-title">
+      <div class="section-inner">
+        <h2 id="github-title" class="section-title">
+          <span class="section-num">02</span> Activité GitHub
+        </h2>
+        <p class="section-sub">
+          Derniers commits sur <a href="https://github.com/PMV83/Portfolio_Cybersecurite" target="_blank" rel="noopener">PMV83/Portfolio_Cybersecurite</a>
+        </p>
+
+        <div class="github-header-row">
+          <div class="github-repo-card card" id="repoCard">
+            <div class="repo-loading">
+              <i class="fa-solid fa-circle-notch fa-spin"></i> Chargement du dépôt…
+            </div>
+          </div>
+        </div>
+
+        <div class="commits-list" id="commitsList">
+          <div class="commits-loading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Récupération des commits…
+          </div>
+        </div>
+
+        <div class="github-cta">
+          <a href="https://github.com/PMV83" target="_blank" rel="noopener" class="btn btn-outline">
+            <i class="fa-brands fa-github"></i> Voir tout le profil GitHub
+          </a>
+          <a href="https://github.com/PMV83/Portfolio_Cybersecurite" target="_blank" rel="noopener" class="btn btn-outline">
+            <i class="fa-solid fa-code-branch"></i> Repo Portfolio_Cybersecurite
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SECTION 4 — LINKEDIN
+    ══════════════════════════════════ -->
+    <section id="activity" aria-labelledby="linkedin-title">
+      <div class="section-inner">
+        <h2 id="linkedin-title" class="section-title">
+          <span class="section-num">03</span> LinkedIn
+        </h2>
+        <p class="section-sub">Mes dernières publications · gérées via <code>data/linkedin-posts.json</code></p>
+
+        <div class="li-layout">
+
+          <!-- Colonne gauche : profil -->
+          <aside class="linkedin-profile card">
+            <div class="li-profile-top">
+              <div class="li-avatar"><i class="fa-brands fa-linkedin-in"></i></div>
+              <div class="li-info">
+                <h3>Aurélien Logeais</h3>
+                <p>Analyste Cybersécurité Junior · Alternant chez Kaizzen</p>
+                <p class="li-location"><i class="fa-solid fa-location-dot"></i> Marseille, France</p>
+              </div>
+            </div>
+            <div class="li-stats">
+              <div class="li-stat"><span class="li-stat-icon"><i class="fa-solid fa-briefcase"></i></span><span>Kaizzen — Alternance</span></div>
+              <div class="li-stat"><span class="li-stat-icon"><i class="fa-solid fa-graduation-cap"></i></span><span>Mastère ESGI Aix</span></div>
+              <div class="li-stat"><span class="li-stat-icon"><i class="fa-solid fa-shield-halved"></i></span><span>CompTIA Security+</span></div>
+            </div>
+            <a href="https://www.linkedin.com/in/aurelien-logeais-1727922b4"
+               target="_blank" rel="noopener" class="btn btn-linkedin">
+              <i class="fa-brands fa-linkedin"></i> Voir le profil LinkedIn
+            </a>
+          </aside>
+
+          <!-- Colonne droite : posts récents -->
+          <div class="li-posts-col">
+            <div class="li-posts-header">
+              <span class="li-posts-label">Publications récentes</span>
+              <span class="li-posts-count" id="liPostsCount"></span>
+            </div>
+
+            <!-- Posts chargés dynamiquement -->
+            <div id="liPostsContainer">
+              <div class="li-loading">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Chargement des posts…
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SECTION 4.5 — ARCHIVE PUBLICATIONS
+    ══════════════════════════════════ -->
+    <section id="posts-archive" aria-labelledby="archive-title">
+      <div class="section-inner">
+        <h2 id="archive-title" class="section-title">
+          <span class="section-num">04</span> Archive Publications
+        </h2>
+        <p class="section-sub">Toutes mes publications classées par catégorie</p>
+
+        <div id="archiveContainer" class="archive-folders">
+          <div class="li-loading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Chargement de l'archive…
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         SECTION 5 — LIENS RAPIDES
+    ══════════════════════════════════ -->
+    <section id="links" aria-labelledby="links-title">
+      <div class="section-inner">
+        <h2 id="links-title" class="section-title">
+          <span class="section-num">05</span> Liens &amp; Contact
+        </h2>
+
+        <div class="links-grid">
+
+          <a href="assets/CV_Aurelien_Logeais.pdf" target="_blank" rel="noopener" class="link-card card">
+            <div class="link-card-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="link-card-body">
+              <h3>Curriculum Vitæ</h3>
+              <p>Télécharger mon CV au format PDF</p>
+            </div>
+            <i class="fa-solid fa-arrow-down link-arrow"></i>
+          </a>
+
+          <a href="https://portfolio.pmvix.com" target="_blank" rel="noopener" class="link-card card">
+            <div class="link-card-icon"><i class="fa-solid fa-globe"></i></div>
+            <div class="link-card-body">
+              <h3>CV Interactif</h3>
+              <p>portfolio.pmvix.com — version animée</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square link-arrow"></i>
+          </a>
+
+          <a href="https://github.com/PMV83" target="_blank" rel="noopener" class="link-card card">
+            <div class="link-card-icon"><i class="fa-brands fa-github"></i></div>
+            <div class="link-card-body">
+              <h3>GitHub</h3>
+              <p>github.com/PMV83 — projets &amp; homelab</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square link-arrow"></i>
+          </a>
+
+          <a href="https://www.linkedin.com/in/aurelien-logeais-1727922b4" target="_blank" rel="noopener" class="link-card card">
+            <div class="link-card-icon li"><i class="fa-brands fa-linkedin-in"></i></div>
+            <div class="link-card-body">
+              <h3>LinkedIn</h3>
+              <p>in/aurelien-logeais — réseau professionnel</p>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square link-arrow"></i>
+          </a>
+
+          <a href="mailto:aurelienlogeais781@gmail.com" class="link-card card">
+            <div class="link-card-icon mail"><i class="fa-solid fa-envelope"></i></div>
+            <div class="link-card-body">
+              <h3>E-mail</h3>
+              <p>aurelienlogeais781@gmail.com</p>
+            </div>
+            <i class="fa-solid fa-paper-plane link-arrow"></i>
+          </a>
+
+          <a href="tel:0787320572" class="link-card card">
+            <div class="link-card-icon phone"><i class="fa-solid fa-phone"></i></div>
+            <div class="link-card-body">
+              <h3>Téléphone</h3>
+              <p>07 87 32 05 72</p>
+            </div>
+            <i class="fa-solid fa-arrow-right link-arrow"></i>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer>
+    <div class="footer-inner">
+      <p>
+        <span class="accent">Aurélien Logeais</span> · Analyste Cybersécurité Blue Team
+      </p>
+      <p class="footer-sub">
+        Site auto-hébergé sur infrastructure Proxmox personnelle ·
+        <a href="https://github.com/PMV83" target="_blank" rel="noopener">Code source</a>
+      </p>
+      <p class="footer-sub" id="footerYear"></p>
+    </div>
+  </footer>
+
+  <!-- ░░ LIGHTBOX ░░ -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Image précédente">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Image suivante">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
