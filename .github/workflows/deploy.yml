@@ -1,0 +1,17 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Projets_Personnels/Pages_Internet/MyWebSite/**'
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Pull latest code
+        run: git -C /opt/portfolio pull origin main
+
+      - name: Restart container
+        run: docker compose -f /opt/portfolio/Projets_Personnels/Pages_Internet/MyWebSite/docker-compose.yml up -d --force-recreate
