@@ -1092,11 +1092,11 @@ section + section { padding-top: 5rem; }
   white-space: nowrap;
 }
 /* Category badge colour variants */
-.badge-cat-certification { background: rgba(0,255,157,0.1);  color: var(--green);  border-color: rgba(0,255,157,0.25); }
-.badge-cat-homelab       { background: rgba(255,224,102,0.1); color: var(--yellow); border-color: rgba(255,224,102,0.25); }
-.badge-cat-alternance    { background: rgba(26,106,255,0.12); color: #6699ff;       border-color: rgba(26,106,255,0.25); }
-.badge-cat-formation     { background: rgba(180,100,255,0.1); color: #bb88ff;       border-color: rgba(180,100,255,0.25); }
-.badge-cat-soc           { background: rgba(255,77,77,0.1);   color: var(--red);    border-color: rgba(255,77,77,0.25); }
+.badge-cat-certification  { background: rgba(0,255,157,0.1);   color: var(--green);  border-color: rgba(0,255,157,0.25);  } /* Certification  — vert  */
+.badge-cat-detection      { background: rgba(255,77,77,0.1);   color: var(--red);    border-color: rgba(255,77,77,0.25);  } /* Détection SIEM — rouge */
+.badge-cat-prevention     { background: rgba(26,106,255,0.12); color: #6699ff;       border-color: rgba(26,106,255,0.25); } /* Prévention réseau — bleu */
+.badge-cat-architecture   { background: rgba(255,224,102,0.1); color: var(--yellow); border-color: rgba(255,224,102,0.25);} /* Architecture   — jaune */
+.badge-cat-automatisation { background: rgba(180,100,255,0.1); color: #bb88ff;       border-color: rgba(180,100,255,0.25);} /* Automatisation — violet */
 
 .li-post-content {
   font-size: 0.88rem;

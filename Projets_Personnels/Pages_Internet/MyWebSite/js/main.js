@@ -1,28 +1,10 @@
-/**
- * Aurélien Logeais — Personal Site
- * main.js — Comportements UI + intégration GitHub API (read-only, public)
- *
- * Sécurité :
- *  - Aucun token/secret exposé côté client
- *  - Tous les contenus dynamiques sont échappés (pas de innerHTML brut)
- *  - GitHub API publique → pas d'authentification requise pour les repos publics
- *  - Limites : 60 requêtes/heure par IP (suffisant pour un portfolio)
- */
-
 'use strict';
 
-/* ══════════════════════════════
-   CONSTANTS
-══════════════════════════════ */
 const GITHUB_USER   = 'PMV83';
 const GITHUB_REPO   = 'Portfolio_Cybersecurite';
 const GITHUB_API    = 'https://api.github.com';
 const COMMITS_COUNT = 5;
 
-/* ══════════════════════════════
-   UTILITY — safe text setting
-   (évite toute injection XSS)
-══════════════════════════════ */
 function setText(el, text) {
   if (el) el.textContent = text;
 }
@@ -45,21 +27,16 @@ function relativeTime(dateStr) {
   return new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-/* ══════════════════════════════
-   NAVBAR — scroll + mobile
-══════════════════════════════ */
 function initNavbar() {
   const navbar  = document.getElementById('navbar');
   const toggle  = document.querySelector('.nav-toggle');
   const drawer  = document.getElementById('navDrawer');
   const drawerLinks = document.querySelectorAll('.drawer-link');
 
-  // Shadow on scroll
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 20);
   }, { passive: true });
 
-  // Mobile toggle
   if (toggle && drawer) {
     toggle.addEventListener('click', () => {
       const expanded = toggle.classList.toggle('active');
@@ -75,7 +52,6 @@ function initNavbar() {
       });
     });
 
-    // Close on outside click
     document.addEventListener('click', (e) => {
       if (!navbar.contains(e.target) && !drawer.contains(e.target)) {
         toggle.classList.remove('active');
@@ -86,9 +62,6 @@ function initNavbar() {
   }
 }
 
-/* ══════════════════════════════
-   TYPEWRITER EFFECT
-══════════════════════════════ */
 function initTypewriter() {
   const el = document.getElementById('typewriter');
   if (!el) return;
@@ -131,9 +104,6 @@ function initTypewriter() {
   setTimeout(type, 600);
 }
 
-/* ══════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════ */
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
@@ -153,13 +123,6 @@ function initScrollReveal() {
   reveals.forEach(el => observer.observe(el));
 }
 
-/* ══════════════════════════════
-   GITHUB API
-══════════════════════════════ */
-
-/**
- * Safely fetch with timeout + error handling
- */
 async function safeFetch(url, timeoutMs = 8000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
@@ -177,25 +140,19 @@ async function safeFetch(url, timeoutMs = 8000) {
   }
 }
 
-/**
- * Render repository info card
- */
 function renderRepoCard(repo) {
   const card = document.getElementById('repoCard');
   if (!card) return;
 
-  // Build DOM nodes — NOT innerHTML to avoid XSS
-  card.innerHTML = ''; // Clear loader
+  card.innerHTML = '';
 
   const wrapper = document.createElement('div');
   wrapper.className = 'repo-info';
 
-  // Icon
   const icon = document.createElement('div');
   icon.className = 'repo-icon';
   icon.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i>';
 
-  // Text block
   const textBlock = document.createElement('div');
   textBlock.style.flex = '1';
 
@@ -215,7 +172,6 @@ function renderRepoCard(repo) {
   textBlock.appendChild(nameEl);
   textBlock.appendChild(descEl);
 
-  // Meta row
   const meta = document.createElement('div');
   meta.className = 'repo-meta';
 
@@ -243,9 +199,6 @@ function renderRepoCard(repo) {
   card.appendChild(meta);
 }
 
-/**
- * Render commits list
- */
 function renderCommits(commits) {
   const container = document.getElementById('commitsList');
   if (!container) return;
@@ -293,12 +246,9 @@ function renderCommits(commits) {
     body.appendChild(msgEl);
     body.appendChild(metaEl);
 
-    // Files changed (if available from individual commit fetch)
     const files = Array.isArray(c.files) ? c.files : [];
     if (files.length > 0) {
-      // Group by deepest meaningful path (last folder containing the file)
-      // and sort by total changes (additions + deletions) descending
-      const folderMap = {}; // folder → { changes, statuses }
+      const folderMap = {};
       files.forEach(f => {
         const parts = (f.filename || '').split('/');
         // Use the parent folder of the file, or the filename itself if at root
@@ -310,7 +260,6 @@ function renderCommits(commits) {
         if (f.status) folderMap[folder].statuses.add(f.status); // added|modified|removed|renamed
       });
 
-      // Sort by total changes desc
       const sorted = Object.entries(folderMap)
         .sort((a, b) => b[1].changes - a[1].changes);
 
@@ -326,7 +275,6 @@ function renderCommits(commits) {
 
       sorted.forEach(([folder, info]) => {
         const isDir = folder.endsWith('/');
-        // Pick dominant status (first in set)
         const status = [...info.statuses][0] || 'modified';
         const si = STATUS_ICON[status] || STATUS_ICON.modified;
 
@@ -351,7 +299,6 @@ function renderCommits(commits) {
     item.appendChild(iconWrap);
     item.appendChild(body);
 
-    // Stagger reveal
     item.style.opacity = '0';
     item.style.transform = 'translateY(8px)';
     item.style.transition = `opacity 0.4s ease ${index * 0.07}s, transform 0.4s ease ${index * 0.07}s`;
@@ -367,9 +314,6 @@ function renderCommits(commits) {
   });
 }
 
-/**
- * Show error in GitHub sections
- */
 function showGitHubError(message) {
   const card     = document.getElementById('repoCard');
   const commits  = document.getElementById('commitsList');
@@ -380,9 +324,6 @@ function showGitHubError(message) {
   if (commits) commits.innerHTML = errHTML;
 }
 
-/**
- * Main GitHub loader
- */
 async function loadGitHub() {
   try {
     const [repoData, commitsData] = await Promise.all([
@@ -391,15 +332,13 @@ async function loadGitHub() {
     ]);
 
     renderRepoCard(repoData);
-    // Render immediately with basic data
     renderCommits(Array.isArray(commitsData) ? commitsData : []);
 
-    // Then silently enrich each commit with its changed files
     if (Array.isArray(commitsData) && commitsData.length) {
       const enriched = await Promise.all(
         commitsData.map(c =>
           safeFetch(`${GITHUB_API}/repos/${GITHUB_USER}/${GITHUB_REPO}/commits/${c.sha}`)
-            .catch(() => c) // fallback: keep basic data on failure
+            .catch(() => c)
         )
       );
       renderCommits(enriched);
@@ -419,31 +358,20 @@ async function loadGitHub() {
   }
 }
 
-/* ══════════════════════════════
-   LINKEDIN POSTS
-══════════════════════════════ */
+const LI_POSTS_RECENT = 3;
 
-const LI_POSTS_RECENT = 3; // nombre de posts affichés en "récents"
-
-/**
- * Catégorie → classe CSS + icône FA
- */
 const CATEGORY_STYLE = {
-  'Cybersécurité':  { cls: '',                         icon: 'fa-shield-halved' },
-  'Certification':  { cls: 'badge-cat-certification',  icon: 'fa-certificate'   },
-  'Homelab':        { cls: 'badge-cat-homelab',        icon: 'fa-server'        },
-  'Alternance':     { cls: 'badge-cat-alternance',     icon: 'fa-briefcase'     },
-  'Formation':      { cls: 'badge-cat-formation',      icon: 'fa-graduation-cap'},
-  'SOC':            { cls: 'badge-cat-soc',            icon: 'fa-eye'           },
+  'Certification':       { cls: 'badge-cat-certification',  icon: 'fa-certificate'    },
+  'Detection Splunk':    { cls: 'badge-cat-detection',      icon: 'fa-eye'            },
+  'Prevention Réseau':   { cls: 'badge-cat-prevention',     icon: 'fa-shield-halved'  },
+  'Architecture Réseau': { cls: 'badge-cat-architecture',   icon: 'fa-network-wired'  },
+  'Automatisation':      { cls: 'badge-cat-automatisation', icon: 'fa-robot'          },
 };
 
 function getCatStyle(category) {
   return CATEGORY_STYLE[category] || { cls: '', icon: 'fa-tag' };
 }
 
-/**
- * Crée un élément post card
- */
 function buildPostCard(post, isScheduled = false) {
   const card = document.createElement('article');
   card.className = 'li-post';
@@ -452,7 +380,6 @@ function buildPostCard(post, isScheduled = false) {
   const dateStr  = postDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   const catStyle = getCatStyle(post.category);
 
-  // Scheduled banner
   if (isScheduled) {
     const banner = document.createElement('span');
     banner.className = 'li-post-scheduled';
@@ -460,7 +387,6 @@ function buildPostCard(post, isScheduled = false) {
     card.appendChild(banner);
   }
 
-  // Header
   const header = document.createElement('div');
   header.className = 'li-post-header';
 
@@ -482,7 +408,6 @@ function buildPostCard(post, isScheduled = false) {
   header.appendChild(badge);
   card.appendChild(header);
 
-  // Content
   const contentEl = document.createElement('div');
   contentEl.className = 'li-post-content';
   const lines = (post.content || '').split('\n');
@@ -492,7 +417,6 @@ function buildPostCard(post, isScheduled = false) {
   if (isLong) contentEl.classList.add('collapsed');
   card.appendChild(contentEl);
 
-  // Footer
   const footer = document.createElement('div');
   footer.className = 'li-post-footer';
 
@@ -521,7 +445,6 @@ function buildPostCard(post, isScheduled = false) {
     footer.appendChild(link);
   }
 
-  // Images gallery (inserted before footer, so footer must be in card first)
   card.appendChild(footer);
 
   const images = Array.isArray(post.images) ? post.images.filter(Boolean) : [];
@@ -539,7 +462,6 @@ function buildPostCard(post, isScheduled = false) {
     else                          cls += ' imgs-more';
     gallery.className = cls;
 
-    // Store all image paths on the gallery for lightbox
     gallery.dataset.images = JSON.stringify(images);
 
     visibleImgs.forEach((src, imgIdx) => {
@@ -561,7 +483,6 @@ function buildPostCard(post, isScheduled = false) {
 
       btn.appendChild(img);
 
-      // +N overlay on last visible thumb if there are more
       if (imgIdx === visibleMax - 1 && extraCount > 0) {
         const overlay = document.createElement('div');
         overlay.className = 'li-img-more-overlay';
@@ -569,7 +490,6 @@ function buildPostCard(post, isScheduled = false) {
         btn.appendChild(overlay);
       }
 
-      // Open lightbox on click
       btn.addEventListener('click', () => openLightbox(images, imgIdx));
       gallery.appendChild(btn);
     });
@@ -580,11 +500,6 @@ function buildPostCard(post, isScheduled = false) {
   return card;
 }
 
-/**
- * Render archive in standalone #archiveContainer section.
- * All past posts (those beyond the 3 recent) grouped by category folder cards.
- * Each folder is collapsible.
- */
 function renderArchive(posts) {
   const container = document.getElementById('archiveContainer');
   if (!container) return;
@@ -599,25 +514,21 @@ function renderArchive(posts) {
     return;
   }
 
-  // Group by category, sorted by most recent post in each group
   const groups = {};
   posts.forEach(p => {
     const cat = p.category || 'Autre';
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(p);
   });
-  // Sort each group by date desc
   Object.values(groups).forEach(g => g.sort((a, b) => new Date(b.date) - new Date(a.date)));
 
   Object.entries(groups).forEach(([cat, catPosts], gi) => {
     const catStyle = getCatStyle(cat);
     const folderId = `archive-folder-${gi}`;
 
-    // Folder card
     const folder = document.createElement('div');
     folder.className = 'archive-folder';
 
-    // Folder header (clickable)
     const header = document.createElement('button');
     header.className = 'archive-folder-header';
     header.setAttribute('aria-expanded', 'true');
@@ -628,7 +539,6 @@ function renderArchive(posts) {
       <span class="archive-folder-count">${catPosts.length} post${catPosts.length > 1 ? 's' : ''}</span>
       <i class="fa-solid fa-chevron-down archive-folder-chevron"></i>`;
 
-    // Folder body
     const body = document.createElement('div');
     body.className = 'archive-folder-body open';
     body.id = folderId;
@@ -636,7 +546,6 @@ function renderArchive(posts) {
     catPosts.forEach(post => {
       const postDate = new Date(post.date);
       const dateStr  = postDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
-      // First meaningful line (strip emojis)
       const firstLine = (post.content || '')
         .split('\n')
         .find(l => l.trim().length > 2) || '(post sans titre)';
@@ -681,7 +590,6 @@ function renderArchive(posts) {
     folder.appendChild(body);
     container.appendChild(folder);
 
-    // Toggle
     header.addEventListener('click', () => {
       const open = header.getAttribute('aria-expanded') === 'true';
       header.setAttribute('aria-expanded', String(!open));
@@ -692,12 +600,6 @@ function renderArchive(posts) {
   });
 }
 
-/**
- * Main LinkedIn posts loader
- * Reads data/linkedin-posts.json
- * Filters by date (scheduled posts invisible until their date)
- * Shows LI_POSTS_RECENT most recent, rest in archive
- */
 async function loadLinkedInPosts() {
   const container  = document.getElementById('liPostsContainer');
   const countLabel = document.getElementById('liPostsCount');
@@ -705,7 +607,6 @@ async function loadLinkedInPosts() {
 
   let allPosts = [];
   try {
-    // Cache-bust: force fresh read on every page load
     const res = await fetch(`data/linkedin-posts.json?v=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     allPosts = await res.json();
@@ -719,11 +620,9 @@ async function loadLinkedInPosts() {
 
   const now = Date.now();
 
-  // Separate visible vs scheduled (future)
   const visible   = allPosts.filter(p => new Date(p.date).getTime() <= now);
   const scheduled = allPosts.filter(p => new Date(p.date).getTime() >  now);
 
-  // Sort visible desc by date
   visible.sort((a, b) => new Date(b.date) - new Date(a.date));
   scheduled.sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -739,13 +638,11 @@ async function loadLinkedInPosts() {
     return;
   }
 
-  // Count label
   if (countLabel) {
     const total = allPosts.length;
     countLabel.textContent = `${total} post${total > 1 ? 's' : ''}`;
   }
 
-  // Render recent (visible)
   recent.forEach((post, i) => {
     const card = buildPostCard(post, false);
     card.style.opacity   = '0';
@@ -758,7 +655,6 @@ async function loadLinkedInPosts() {
     }));
   });
 
-  // Show scheduled posts (only visible to you in preview — they won't show on prod until the date)
   if (scheduled.length > 0) {
     const schedDiv = document.createElement('div');
     schedDiv.style.cssText = 'margin-top:0.25rem;';
@@ -770,12 +666,9 @@ async function loadLinkedInPosts() {
     container.appendChild(schedDiv);
   }
 
-  // Render archive
   renderArchive(archive);
 }
 
-/* ══════════════════════════════   LIGHTBOX
-════════════════════════════ */
 let _lbImages  = [];
 let _lbCurrent = 0;
 
@@ -828,7 +721,6 @@ function initLightbox() {
     if (_lbCurrent < _lbImages.length - 1) { _lbCurrent++; _renderLightbox(); }
   });
 
-  // Click outside image → close
   lb.addEventListener('click', (e) => {
     if (e.target === lb || e.target.closest('.lightbox-img-wrap') === null
         && !e.target.closest('button')) {
@@ -836,7 +728,6 @@ function initLightbox() {
     }
   });
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
     if (e.key === 'Escape')     closeLightbox();
@@ -845,16 +736,11 @@ function initLightbox() {
   });
 }
 
-/* ════════════════════════════   FOOTER YEAR
-══════════════════════════════ */
 function initFooter() {
   const el = document.getElementById('footerYear');
   if (el) el.textContent = `© ${new Date().getFullYear()} Aurélien Logeais`;
 }
 
-/* ══════════════════════════════
-   ADD .reveal CLASS TO SECTIONS
-══════════════════════════════ */
 function addRevealClasses() {
   const targets = document.querySelectorAll(
     '.about-grid > .card, .commits-list, #repoCard, .linkedin-wrapper > .card, .link-card, .github-cta'
@@ -865,9 +751,6 @@ function addRevealClasses() {
   });
 }
 
-/* ══════════════════════════════
-   INIT
-══════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initTypewriter();
