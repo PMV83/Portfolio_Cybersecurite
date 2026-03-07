@@ -3,7 +3,7 @@
 Site personnel statique présentant mon profil, mes compétences et mes projets en **Blue Team / SOC**.  
 Hébergé sur un **LXC Proxmox** via Docker, exposé publiquement avec **Cloudflare Tunnel** (aucun port entrant ouvert).
 
-🌐 **[portfolio.pmvix.com](https://portfolio.pmvix.com)**
+🌐 **[main.pmvix.com](https://main.pmvix.com)**
 
 ## Structure
 ```
