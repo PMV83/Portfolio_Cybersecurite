@@ -620,18 +620,15 @@ async function loadLinkedInPosts() {
 
   const now = Date.now();
 
-  const visible   = allPosts.filter(p => new Date(p.date).getTime() <= now);
-  const scheduled = allPosts.filter(p => new Date(p.date).getTime() >  now);
-
+  const visible = allPosts.filter(p => new Date(p.date).getTime() <= now);
   visible.sort((a, b) => new Date(b.date) - new Date(a.date));
-  scheduled.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const recent  = visible.slice(0, LI_POSTS_RECENT);
   const archive = visible.slice(LI_POSTS_RECENT);
 
   container.innerHTML = '';
 
-  if (recent.length === 0 && scheduled.length === 0) {
+  if (recent.length === 0) {
     container.innerHTML = `<p style="color:var(--text-muted);font-size:0.85rem;padding:0.75rem;">
       Aucun post pour l'instant. Ajoute des entrées dans <code>data/linkedin-posts.json</code> !
     </p>`;
@@ -639,7 +636,7 @@ async function loadLinkedInPosts() {
   }
 
   if (countLabel) {
-    const total = allPosts.length;
+    const total = visible.length;
     countLabel.textContent = `${total} post${total > 1 ? 's' : ''}`;
   }
 
@@ -654,17 +651,6 @@ async function loadLinkedInPosts() {
       card.style.transform = 'translateY(0)';
     }));
   });
-
-  if (scheduled.length > 0) {
-    const schedDiv = document.createElement('div');
-    schedDiv.style.cssText = 'margin-top:0.25rem;';
-    const schedHeader = document.createElement('p');
-    schedHeader.style.cssText = 'font-family:var(--font-mono);font-size:0.75rem;color:var(--yellow);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;';
-    schedHeader.innerHTML = `<i class="fa-solid fa-clock"></i> Posts planifiés (visibles uniquement ici en preview)`;
-    schedDiv.appendChild(schedHeader);
-    scheduled.forEach(post => schedDiv.appendChild(buildPostCard(post, true)));
-    container.appendChild(schedDiv);
-  }
 
   renderArchive(archive);
 }
