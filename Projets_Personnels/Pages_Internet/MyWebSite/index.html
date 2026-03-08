@@ -7,15 +7,12 @@
   <meta name="robots" content="index, follow" />
   <title>Aurélien Logeais | Cybersécurité Blue Team</title>
 
-  <!-- Favicon inline SVG -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
 
-  <!-- Google Fonts — self-hostable if needed -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome — icons only, loaded once -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -23,13 +20,10 @@
 </head>
 <body>
 
-  <!-- ░░ SCANLINES OVERLAY ░░ -->
   <div class="scanlines" aria-hidden="true"></div>
 
-  <!-- ░░ BACKGROUND GRID ░░ -->
   <div class="bg-grid" aria-hidden="true"></div>
 
-  <!-- ░░ NAV ░░ -->
   <nav id="navbar" role="navigation" aria-label="Navigation principale">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">
@@ -51,7 +45,6 @@
     </div>
   </nav>
 
-  <!-- ░░ MOBILE NAV DRAWER ░░ -->
   <div class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
     <ul>
       <li><a href="#about" class="drawer-link">Profil</a></li>
@@ -65,9 +58,6 @@
 
   <main>
 
-    <!-- ══════════════════════════════════
-         SECTION 1 — HERO
-    ══════════════════════════════════ -->
     <section id="hero" aria-labelledby="hero-name">
       <div class="hero-inner">
 
@@ -98,7 +88,7 @@
             <a href="https://portfolio.pmvix.com" target="_blank" rel="noopener" class="btn btn-secondary">
               <i class="fa-solid fa-globe"></i> CV Interactif
             </a>
-            <a href="mailto:aurelienlogeais781@gmail.com" class="btn btn-ghost">
+            <a href="mailto:aurelienlogeais781@gmail.com?subject=Opportunit%C3%A9%20professionnelle" class="btn btn-ghost">
               <i class="fa-solid fa-paper-plane"></i> Me contacter
             </a>
           </div>
@@ -110,24 +100,17 @@
             <a href="https://www.linkedin.com/in/aurelien-logeais-1727922b4" target="_blank" rel="noopener" aria-label="LinkedIn">
               <i class="fa-brands fa-linkedin"></i>
             </a>
-            <a href="tel:0787320572" aria-label="Téléphone">
-              <i class="fa-solid fa-phone"></i>
-            </a>
           </div>
         </div>
 
       </div>
 
-      <!-- Scroll hint -->
       <div class="scroll-hint" aria-hidden="true">
         <span>scroll</span>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SECTION 2 — PROFIL / ABOUT
-    ══════════════════════════════════ -->
     <section id="about" aria-labelledby="about-title">
       <div class="section-inner">
         <h2 id="about-title" class="section-title">
@@ -268,9 +251,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SECTION 3 — GITHUB ACTIVITY
-    ══════════════════════════════════ -->
     <section id="github" aria-labelledby="github-title">
       <div class="section-inner">
         <h2 id="github-title" class="section-title">
@@ -305,9 +285,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SECTION 4 — LINKEDIN
-    ══════════════════════════════════ -->
     <section id="activity" aria-labelledby="linkedin-title">
       <div class="section-inner">
         <h2 id="linkedin-title" class="section-title">
@@ -317,7 +294,6 @@
 
         <div class="li-layout">
 
-          <!-- Colonne gauche : profil -->
           <aside class="linkedin-profile card">
             <div class="li-profile-top">
               <div class="li-avatar"><i class="fa-brands fa-linkedin-in"></i></div>
@@ -338,14 +314,12 @@
             </a>
           </aside>
 
-          <!-- Colonne droite : posts récents -->
           <div class="li-posts-col">
             <div class="li-posts-header">
               <span class="li-posts-label">Publications récentes</span>
               <span class="li-posts-count" id="liPostsCount"></span>
             </div>
 
-            <!-- Posts chargés dynamiquement -->
             <div id="liPostsContainer">
               <div class="li-loading">
                 <i class="fa-solid fa-circle-notch fa-spin"></i> Chargement des posts…
@@ -359,9 +333,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SECTION 4.5 — ARCHIVE PUBLICATIONS
-    ══════════════════════════════════ -->
     <section id="posts-archive" aria-labelledby="archive-title">
       <div class="section-inner">
         <h2 id="archive-title" class="section-title">
@@ -377,9 +348,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SECTION 5 — LIENS RAPIDES
-    ══════════════════════════════════ -->
     <section id="links" aria-labelledby="links-title">
       <div class="section-inner">
         <h2 id="links-title" class="section-title">
@@ -424,7 +392,7 @@
             <i class="fa-solid fa-arrow-up-right-from-square link-arrow"></i>
           </a>
 
-          <a href="mailto:aurelienlogeais781@gmail.com" class="link-card card">
+          <a href="mailto:aurelienlogeais781@gmail.com?subject=Opportunit%C3%A9%20professionnelle" class="link-card card">
             <div class="link-card-icon mail"><i class="fa-solid fa-envelope"></i></div>
             <div class="link-card-body">
               <h3>E-mail</h3>
@@ -433,22 +401,12 @@
             <i class="fa-solid fa-paper-plane link-arrow"></i>
           </a>
 
-          <a href="tel:0787320572" class="link-card card">
-            <div class="link-card-icon phone"><i class="fa-solid fa-phone"></i></div>
-            <div class="link-card-body">
-              <h3>Téléphone</h3>
-              <p>07 87 32 05 72</p>
-            </div>
-            <i class="fa-solid fa-arrow-right link-arrow"></i>
-          </a>
-
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ░░ FOOTER ░░ -->
   <footer>
     <div class="footer-inner">
       <p>
@@ -462,7 +420,6 @@
     </div>
   </footer>
 
-  <!-- ░░ LIGHTBOX ░░ -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
     <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">
       <i class="fa-solid fa-xmark"></i>
