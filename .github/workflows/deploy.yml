@@ -14,4 +14,13 @@ jobs:
         run: git -C /opt/portfolio pull origin main
 
       - name: Restart container
-        run: docker compose -f /opt/portfolio/Projets_Personnels/Pages_Internet/MyWebSite/docker-compose.yml up -d --force-recreate
+        run: |
+          cd /opt/portfolio/Projets_Personnels/Pages_Internet/MyWebSite
+          docker compose up -d --build --force-recreate
+
+      - name: Purge Cloudflare cache
+        run: |
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
