@@ -1,5 +1,15 @@
 [
   {
+    "id": 8,
+    "date": "2026-03-24T08:30:00",
+    "category": "Automatisation",
+    "content": "🎯 De la donnée brute à l'alerte qualifiée : Mes premières règles de détection sur Splunk.\n\nAvoir des logs Sysmon qui remontent dans un SIEM est une excellente base. Mais être capable d'y trouver un comportement malveillant automatisé est le véritable métier de l'analyste SOC.\n\nCette semaine dans mon Homelab, je suis passé à l'étape supérieure en exploitant la puissance du langage de recherche Splunk pour implémenter de véritables règles de détection basées sur le framework MITRE ATT&CK.\n\nUn exemple concret : La détection de persistance via le Registre. Lorsqu'un attaquant compromet une machine, son objectif prioritaire est d'y rester. La technique classique consiste à modifier les clés de registre de démarrage automatique. J'ai donc codé une alerte SPL qui scrute les événements Sysmon 12 et 13 ciblant le chemin \\\\CurrentVersion\\\\Run\\\\.\n\nLe détail technique : Mes logs bruts étant au format XML, j'ai utilisé la commande rex avec des expressions régulières pour extraire proprement les champs clés comme le processus source ou la valeur modifiée.\n\nJ'en ai profité pour packager d'autres règles dans mon SIEM afin de couvrir un spectre plus large : \n - Détection de comportement de type Ransomware avec la destruction des sauvegardes locales. \n - Détection d'escalade de privilèges lors de l'ajout suspect d'un utilisateur au groupe Administrateurs local.\n\nLa réalité du terrain : En activant ces premières alertes, j'ai vite compris une leçon fondamentale. Détecter une menace est techniquement assez simple. Le vrai défi est de faire face au volume impressionnant de faux positifs générés par les processus légitimes. L'affinage de ces requêtes pour réduire le bruit sera justement mon prochain grand chantier.\n\n👉 Le constat actuel : Mon laboratoire n'est plus seulement une archive morte. Il devient un véritable moteur de détection actif. L'intégralité de mon code SPL est d'ailleurs documenté et disponible sur mon profil GitHub.\n\n🤔 Question aux analystes SOC expérimentés : Quelle est l'entrée ou la fonction SPL que vous utilisez absolument tous les jours lors de vos investigations et qui vous fait gagner un temps précieux ?\n\n#Cybersecurity #SOC #Splunk #BlueTeam #ThreatHunting #SIEM #SPL",
+    "images": [
+      "data/posts-images/secondpostsplunk1.png","data/posts-images/secondpostsplunk2.png"
+    ],
+    "url": "https://www.linkedin.com/in/aurelien-logeais-1727922b4/"
+  },
+  {
     "id": 7,
     "date": "2026-03-17T08:30:00",
     "category": "Automatisation",
