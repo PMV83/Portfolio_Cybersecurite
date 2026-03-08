@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'Projets_Personnels/Pages_Internet/MyWebSite/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
