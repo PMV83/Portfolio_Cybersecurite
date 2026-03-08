@@ -71,5 +71,3 @@ Dans **Zero Trust** → **Tunnels** → ton tunnel → **Public Hostnames** → 
 |---|---|
 | Derniers commits & stats repo | GitHub API publique (read-only, 60 req/h) |
 | Publications LinkedIn | `data/linkedin-posts.json` — mis à jour manuellement |
-| Photo de profil | `assets/photoprofil.jpg` |
-| CV PDF | `assets/CV_Aurelien_Logeais.pdf` |
