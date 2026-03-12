@@ -366,6 +366,7 @@ const CATEGORY_STYLE = {
   'Prevention Réseau':   { cls: 'badge-cat-prevention',     icon: 'fa-shield-halved'  },
   'Architecture Réseau': { cls: 'badge-cat-architecture',   icon: 'fa-network-wired'  },
   'Automatisation':      { cls: 'badge-cat-automatisation', icon: 'fa-robot'          },
+  'Recherche Emploi':    { cls: 'badge-cat-emploi',         icon: 'fa-briefcase'      },
 };
 
 function getCatStyle(category) {
